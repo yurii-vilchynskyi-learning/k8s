@@ -1,3 +1,23 @@
+#ConfigMap
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-config
+data:
+  dbname: EPAM-LAB
+#Secret
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db-secret
+type: Opaque
+data:
+  username: cGV0Y2xpbmljCg==
+  password: cGV0Y2xpbmljCg==
+  rootpassword: am9qbwo=
+#StatefulSet
 ---
 apiVersion: apps/v1
 kind: StatefulSet
