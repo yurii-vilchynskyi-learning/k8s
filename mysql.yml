@@ -7,15 +7,15 @@ metadata:
 data:
   dbname: EPAM_LABS
 #Secret
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: db-secret
-data:
-  username: cGV0Y2xpbmljCg==
-  password: cGV0Y2xpbmljCg==
-  rootpassword: am9qbwo=
+# ---
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: db-secret
+# data:
+#   username: cGV0Y2xpbmljCg==
+#   password: cGV0Y2xpbmljCg==
+#   rootpassword: am9qbwo=
 #Service
 ---
 apiVersion: v1
