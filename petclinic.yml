@@ -1,3 +1,11 @@
+#ConfigMap
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pet-profile
+data:
+  profile: mysql
 #Service
 ---
 apiVersion: v1
@@ -28,5 +36,11 @@ spec:
       containers:
       - name: petclinic
         image: 17062000/k8s-pet
+        env:
+          - name: SPRING_PROFILES_ACTIVE
+            valueFrom:
+              configMapKeyRef:
+                name: pet-profile
+                key: profile
         ports:
         - containerPort: 8080
