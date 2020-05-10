@@ -1,21 +1,35 @@
-# #ConfigMap
-# ---
-# apiVersion: v1
-# kind: ConfigMap
-# metadata:
-#   name: db-config
-# data:
-#   dbname: EPAM_LABS
-# #Secret
-# ---
-# apiVersion: v1
-# kind: Secret
-# metadata:
-#   name: db-secret
-# data:
-#   username: cGV0Y2xpbmljCg==
-#   password: cGV0Y2xpbmljCg==
-#   rootpassword: am9qbwo=
+#ConfigMap
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-config
+data:
+  dbname: EPAM_LABS
+#Secret
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db-secret
+data:
+  username: cGV0Y2xpbmljCg==
+  password: cGV0Y2xpbmljCg==
+  rootpassword: am9qbwo=
+#Service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pet-svc
+  labels:
+    app: pet-svc
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: mysql
+  clusterIP: None
 #StatefulSet
 ---
 apiVersion: apps/v1
@@ -37,13 +51,25 @@ spec:
         image: mysql:5.7
         env:
         - name: MYSQL_DATABASE
-          value: EPAM_LABS
+          valueFrom:
+            configMapKeyRef:
+              name: db-config
+              key: dbname
         - name: MYSQL_USER
-          value: petclinic
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: username
         - name: MYSQL_PASSWORD
-          value: petclinic
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: password
         - name: MYSQL_ROOT_PASSWORD
-          value: jojo   
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: rootpassword   
       #   volumeMounts:
       #   - name: mysql-data
       #     mountPath: /var/lib/mysql
