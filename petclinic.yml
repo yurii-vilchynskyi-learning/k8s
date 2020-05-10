@@ -1,0 +1,32 @@
+#Service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pet-service
+spec:
+  selector:
+    app: frontend
+  ports:
+  - port: 8080
+  type: LoadBalancer
+#Deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: petclinic-dpl
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: petclinic
+        image: 17062000/k8s-pet
+        ports:
+        - containerPort: 8080
