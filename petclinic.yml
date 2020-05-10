@@ -37,10 +37,10 @@ spec:
       - name: petclinic
         image: 17062000/k8s-pet
         env:
-          - name: SPRING_PROFILES_ACTIVE
-            valueFrom:
-              configMapKeyRef:
-                name: pet-profile
-                key: profile
+        - name: SPRING_PROFILES_ACTIVE
+          valueFrom:
+            configMapKeyRef:
+              name: pet-profile
+              key: profile
         ports:
         - containerPort: 8080
