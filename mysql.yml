@@ -30,6 +30,35 @@ spec:
   selector:
     app: mysql
   clusterIP: None
+#Persistant volume
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-data
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/root/data"
+#Persistant volume cliam
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 500Mi
 #StatefulSet
 ---
 apiVersion: apps/v1
@@ -76,4 +105,4 @@ spec:
       # volumes:
       # - name: mysql-persistent-storage
       #   persistentVolumeClaim:
-      #     claimName: mysql-pv-claim  
+      #     claimName: mysql-pv-claim
