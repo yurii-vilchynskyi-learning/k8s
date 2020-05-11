@@ -6,6 +6,7 @@ metadata:
   name: db-config
 data:
   dbname: EPAM_LABS
+
 #Secret
 ---
 apiVersion: v1
